@@ -1,0 +1,258 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #121212;
+  font-family: 'Montserrat', sans-serif;
+  color: #F5F5F5;
+}
+
+#scene {
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+#background {
+  position: absolute;
+  inset: -5%; /* slightly larger for parallax */
+  background-image: url('https://skoop-dev-code-agent.s3.us-east-1.amazonaws.com/n8n-continue%2Faigen-1773220299202%2Fassets%2Fbg-dispensary-1773220485874.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: brightness(0.8) contrast(1.1);
+}
+
+/* Atmospheric Smoke */
+#background-effects {
+  position: absolute;
+  inset: -20%;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+.smoke-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://skoop-dev-code-agent.s3.us-east-1.amazonaws.com/n8n-continue%2Faigen-1773220299202%2Fassets%2Fsmoke-overlay-1773220512089.png');
+  background-size: cover;
+  background-position: center;
+}
+.smoke-2 {
+  transform: scaleX(-1);
+  opacity: 0.5;
+}
+
+/* Foreground Embers/Particles */
+#foreground-layer {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 20;
+  mix-blend-mode: screen;
+}
+
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://skoop-dev-code-agent.s3.us-east-1.amazonaws.com/n8n-continue%2Faigen-1773220299202%2Fassets%2Fparticles-1773220532985.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+}
+
+/* UI Elements */
+#ui-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 80px;
+}
+
+.brand-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 32px;
+  color: #D32F2F;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+.northeast-logo .logo-text {
+  font-weight: 900;
+  font-size: 54px;
+  letter-spacing: 12px;
+  color: #F5F5F5;
+  text-shadow: 0 4px 16px rgba(211, 47, 47, 0.4);
+}
+
+/* Products Container */
+#products-container {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 120px;
+}
+
+.product-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 20px rgba(211, 47, 47, 0.3));
+}
+
+/* Red glowing ring behind product */
+.glow-ring {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  border: 2px solid rgba(211, 47, 47, 0.4);
+  box-shadow: 0 0 80px rgba(211, 47, 47, 0.5), inset 0 0 40px rgba(211, 47, 47, 0.3);
+  z-index: -1;
+}
+
+.product-details {
+  flex: 1;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 36px;
+  color: #FF9800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.product-name {
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.pricing-block {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.original-price {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  font-size: 48px;
+  color: #6a7071;
+  position: relative;
+  margin-right: 30px;
+}
+
+.strikethrough {
+  position: absolute;
+  top: 50%;
+  left: -5%;
+  width: 0;
+  height: 6px;
+  background-color: #D32F2F;
+  transform: translateY(-50%) rotate(-10deg);
+}
+
+.discounted-price {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  font-size: 110px;
+  color: #F5F5F5;
+  text-shadow: 0 0 30px rgba(229, 57, 53, 0.6);
+}
+
+.currency {
+  font-size: 60px;
+  vertical-align: super;
+}
+
+.thc-stats {
+  display: flex;
+  align-items: center;
+}
+
+.thc-label {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-right: 20px;
+  color: #F5F5F5;
+}
+
+.thc-bar-container {
+  width: 300px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.thc-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #D32F2F, #FF9800);
+  border-radius: 6px;
+}
+
+.thc-value-text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: 20px;
+  color: #FF9800;
+}
